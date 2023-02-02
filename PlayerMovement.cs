@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int _speed;
     [SerializeField] private int _tapForce;
     [SerializeField] private Vector3 _startPosition;
-    [SerializeField] private bool IsGround = true;
+    [SerializeField] private bool _isGround = true;
 
     private Rigidbody2D _rigidbody2D;
 
@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(collision.gameObject.TryGetComponent<Block>(out Block block))
         {
-            IsGround = true;
+            _isGround = true;
         }       
     }
 
@@ -33,11 +33,11 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.Translate(Vector2.right * _speed * Time.deltaTime);
 
-        if (Input.GetKey(KeyCode.Space) && IsGround == true)
+        if (Input.GetKey(KeyCode.Space) && _isGround == true)
         {                   
             _rigidbody2D.velocity = new Vector2(0, 0);
             _rigidbody2D.AddForce(Vector2.up * _tapForce, ForceMode2D.Force);           
-            IsGround = false;
+            _isGround = false;
         }
     }
 }
